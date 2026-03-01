@@ -19,5 +19,10 @@
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*",
     "@mariozechner/pi-ai": "*"
+  },
+  "openclaw": {
+    "extensions": [
+      "./src/plugin.ts"
+    ]
   }
 }

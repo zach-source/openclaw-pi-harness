@@ -1,0 +1,73 @@
+{
+  "id": "openclaw-pi-harness",
+  "name": "OpenClaw Pi Harness",
+  "version": "0.1.0",
+  "description": "Wraps Pi agent sessions with workflow command routing, channel bridging, and fleet memory for the OpenClaw Gateway.",
+  "entry": "./src/plugin.ts",
+  "configSchema": {
+    "type": "object",
+    "required": [
+      "workspace",
+      "extensions",
+      "heartbeat",
+      "harness",
+      "workflows"
+    ],
+    "properties": {
+      "workspace": {
+        "type": "string",
+        "description": "Working directory for tool path resolution and resource discovery."
+      },
+      "extensions": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Absolute paths to Pi extension .ts or .js files."
+      },
+      "heartbeat": {
+        "type": "object",
+        "required": ["enabled", "intervalMs"],
+        "properties": {
+          "enabled": { "type": "boolean" },
+          "intervalMs": { "type": "number" }
+        }
+      },
+      "harness": {
+        "type": "object",
+        "required": ["maxWorkers", "staggerMs", "tmuxServer"],
+        "properties": {
+          "maxWorkers": { "type": "number" },
+          "staggerMs": { "type": "number" },
+          "tmuxServer": { "type": "string" }
+        }
+      },
+      "graphiti": {
+        "type": "object",
+        "properties": {
+          "endpoint": { "type": "string", "description": "Graphiti base URL." },
+          "groupId": {
+            "type": "string",
+            "description": "Graphiti group/namespace identifier."
+          }
+        }
+      },
+      "workflows": {
+        "type": "object",
+        "required": ["workflowsDir", "configPath"],
+        "properties": {
+          "workflowsDir": {
+            "type": "string",
+            "description": "Directory containing workflow .md files."
+          },
+          "configPath": {
+            "type": "string",
+            "description": "Path to agent-os/config.yml."
+          }
+        }
+      },
+      "notifyOnToolStart": {
+        "type": "boolean",
+        "description": "Send channel notification when a tool execution begins."
+      }
+    }
+  }
+}
