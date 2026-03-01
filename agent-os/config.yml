@@ -1,0 +1,39 @@
+version: 2.1.1
+last_compiled: 2026-03-01 00:00:00
+
+# ================================================
+# Agent-OS configuration for openclaw-pi-harness
+#
+# This is the spec/planning repo. Implementation
+# targets are listed in `implementation_repos`.
+# ================================================
+profile: ztaylor
+claude_code_commands: true
+use_claude_code_subagents: true
+agent_os_commands: false
+standards_as_claude_code_skills: true
+
+# ------------------------------------------------
+# Implementation targets
+#
+# Specs in this repo drive implementation across
+# one or more external repositories. Workflows
+# reference these by key name (e.g., "openclaw").
+# ------------------------------------------------
+implementation_repos:
+  - key: openclaw
+    github: zach-source/openclaw-pi-harness
+    local_path: ../claude-code-openclaw-extension
+    branch_prefix: spec/
+    description: OpenClaw Pi Harness extension (TypeScript)
+    test_command: npx vitest run
+    build_command: npx tsc --noEmit
+    lint_command: npx prettier --check src/ test/
+
+  - key: pi-extensions
+    github: zach-source/pi-agent-extensions
+    local_path: ../pi-agent-extensions
+    branch_prefix: spec/
+    description: Pi agent extensions (simple-harness, heartbeat, graphiti)
+    test_command: npx vitest run
+    build_command: npx tsc --noEmit
