@@ -46,6 +46,7 @@ export interface GatewayCommandResult {
 }
 
 export interface GatewayService {
+  id: string;
   start(): Promise<void> | void;
   stop(): Promise<void> | void;
 }

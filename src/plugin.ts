@@ -266,6 +266,7 @@ async function handleWorkflowCommand(
 function register(api: GatewayPluginApi): void {
   // Register service lifecycle
   api.registerService({
+    id: "openclaw-pi-harness",
     start() {
       // No-op: session is lazily created on first command invocation
     },
