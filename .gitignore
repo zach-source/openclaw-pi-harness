@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.claude/
+audit.log
+.spec-workflow/

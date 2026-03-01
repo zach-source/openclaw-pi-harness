@@ -1,0 +1,23 @@
+{
+  "runtime": "pi",
+  "model": "claude-opus-4-6",
+  "workspace": "~/.openclaw/workspace",
+  "extensions": [
+    "~/.pi/agent/extensions/heartbeat.ts",
+    "~/.pi/agent/extensions/simple-harness.ts",
+    "~/.pi/agent/extensions/graphiti.ts"
+  ],
+  "heartbeat": {
+    "enabled": true,
+    "intervalMs": 60000
+  },
+  "harness": {
+    "maxWorkers": 3,
+    "staggerMs": 5000,
+    "tmuxServer": "pi-harness"
+  },
+  "graphiti": {
+    "endpoint": "http://graphiti-mcp.graphiti.svc.cluster.local:8000/mcp/",
+    "groupId": "openclaw-fleet"
+  }
+}
