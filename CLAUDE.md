@@ -7,13 +7,13 @@ Agents use this repo to plan, spec, and drive implementation across target repos
 
 This repo follows the **agent-os** workflow framework:
 
-1. `/plan-product` — Product vision, roadmap, tech stack
-2. `/shape-spec` — Initialize and scope a new feature
-3. `/write-spec` — Write formal specification
-4. `/create-tasks` — Break spec into implementable tasks
-5. `/communicate-changes` — Create PR in target repo(s)
-6. `/implement-tasks` — Implement tasks (simple mode)
-7. `/orchestrate-tasks` — Implement tasks (multi-agent mode)
+1. `/agent-os:plan-product` — Product vision, roadmap, tech stack
+2. `/agent-os:shape-spec` — Initialize and scope a new feature
+3. `/agent-os:write-spec` — Write formal specification
+4. `/agent-os:create-tasks` — Break spec into implementable tasks
+5. `/agent-os:communicate-changes` — Create PR in target repo(s)
+6. `/agent-os:implement-tasks` — Implement tasks (simple mode)
+7. `/agent-os:orchestrate-tasks` — Implement tasks (multi-agent mode)
 
 ## Implementation Targets
 
@@ -38,7 +38,8 @@ When running implementation workflows:
 | Path | Purpose |
 |------|---------|
 | `agent-os/` | Agent-OS configuration |
-| `workflows/` | Workflow definitions (slash commands) |
+| `.claude/commands/agent-os/` | Claude Code slash commands |
+| `workflows/` | Workflow definitions (reference docs) |
 | `templates/` | Document templates for specs |
 | `specs/` | Feature specifications |
 | `plans/` | Implementation plans |
@@ -67,4 +68,5 @@ npx prettier --check .    # Format check
 
 - **Agent contract**: `AGENT.md` — roles, constraints, workflows
 - **Config**: `agent-os/config.yml` — repo targets, settings
-- **Workflows**: `workflows/` — agent-os slash command definitions
+- **Commands**: `.claude/commands/agent-os/` — Claude Code slash commands
+- **Workflows**: `workflows/` — workflow reference documentation
