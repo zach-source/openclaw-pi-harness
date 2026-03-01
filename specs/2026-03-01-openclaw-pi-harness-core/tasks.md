@@ -1,0 +1,101 @@
+# Tasks — OpenClaw Pi Harness Core
+
+**Status**: Baseline spec — tasks represent validation and incremental improvements on the existing implementation.
+
+- [x] 1. Task Group: Core Types and Constants
+  - [x] 1.1 Define RunMessageType union and RunMessage interface
+    - File: src/types.ts
+    - Purpose: Type-safe representation of simple-harness lifecycle events
+    - _Requirements: 3.1, 3.2_
+  - [x] 1.2 Define OpenClawChannel interface
+    - File: src/types.ts
+    - Purpose: Channel abstraction for messaging platform independence
+    - _Requirements: 2.1, 2.3_
+  - [x] 1.3 Define SessionEventHandlers, HarnessAgentConfig, FleetMemoryConfig, FleetContext, WorkerResult
+    - File: src/types.ts
+    - Purpose: Shared type contracts across all modules
+    - _Requirements: 1.4, 4.1, 5.2_
+  - [x] 1.4 Define MEMORY_FILE_PATH constant
+    - File: src/types.ts
+    - Purpose: Consistent file path for local fleet memory
+    - _Requirements: 4.3_
+
+- [x] 2. Task Group: Pi Session Embedder
+  - [x] 2.1 Implement dynamic Pi SDK import with caching
+    - File: src/pi-session.ts
+    - Purpose: Peer dependency isolation — compile without SDK installed
+    - _Requirements: 1.1, 1.2_
+  - [x] 2.2 Implement createHarnessSession with DefaultResourceLoader
+    - File: src/pi-session.ts
+    - Purpose: Programmatic session creation with extensions
+    - _Requirements: 1.1_
+  - [x] 2.3 Implement subscribeToSession with event mapping
+    - File: src/pi-session.ts
+    - Purpose: Map Pi SDK events to SessionEventHandlers interface
+    - _Requirements: 1.4, 1.5_
+  - [x] 2.4 Implement runHarnessAgent with subscribe/unsubscribe lifecycle
+    - File: src/pi-session.ts
+    - Purpose: High-level prompt execution with callbacks
+    - _Requirements: 1.3_
+  - [x] 2.5 Implement disposeHarnessSession and isHarnessSession
+    - File: src/pi-session.ts
+    - Purpose: Session cleanup and type guarding
+    - _Requirements: 1.6_
+
+- [x] 3. Task Group: Channel Bridge
+  - [x] 3.1 Implement bridgeSessionToChannel with buffer-and-flush
+    - File: src/channel-bridge.ts
+    - Purpose: Accumulate deltas, send full text on agent_end
+    - _Requirements: 2.1, 2.2, 2.6_
+  - [x] 3.2 Implement bridgeChannelToSession with image support
+    - File: src/channel-bridge.ts
+    - Purpose: Route channel messages to session prompts with multimodal fallback
+    - _Requirements: 2.3, 2.4, 2.5_
+  - [x] 3.3 Implement RunMessage type guard, formatter, and bridge
+    - File: src/channel-bridge.ts
+    - Purpose: Validate, format, and deliver simple-harness lifecycle messages
+    - _Requirements: 3.1, 3.2, 3.3, 3.4_
+
+- [x] 4. Task Group: Fleet Memory
+  - [x] 4.1 Implement configureFleetMemory with connectivity probe
+    - File: src/fleet-memory.ts
+    - Purpose: One-time setup with Graphiti probe and directory creation
+    - _Requirements: 4.1, 4.2, 4.3_
+  - [x] 4.2 Implement storeWorkerResult with dual-write
+    - File: src/fleet-memory.ts
+    - Purpose: Persist to Graphiti (best-effort) and local file (always)
+    - _Requirements: 4.4, 4.5_
+  - [x] 4.3 Implement queryFleetContext with Graphiti and local fallback
+    - File: src/fleet-memory.ts
+    - Purpose: Retrieve relevant context for upcoming tasks
+    - _Requirements: 4.6, 4.7, 4.8_
+
+- [x] 5. Task Group: Agent Configuration
+  - [x] 5.1 Configure agent.json with simple-harness, heartbeat, graphiti extensions
+    - File: agents/pi-harness/agent.json
+    - Purpose: Extension loading configuration
+    - _Requirements: 5.1_
+  - [x] 5.2 Document agent tools in TOOLS.md
+    - File: agents/pi-harness/TOOLS.md
+    - Purpose: Reference for available commands and tools
+    - _Requirements: 5.1_
+
+- [x] 6. Task Group: Test Suite
+  - [x] 6.1 Unit tests for types (MEMORY_FILE_PATH, RunMessageType values)
+    - File: test/types.test.ts
+    - _Leverage: vitest_
+  - [x] 6.2 Unit tests for channel-bridge (isRunMessage, format, bridge, session bridge, channel bridge)
+    - File: test/channel-bridge.test.ts
+    - _Leverage: vitest, vi.fn() mocks_
+  - [x] 6.3 Unit tests for pi-session (subscribe, run, dispose, type guard)
+    - File: test/pi-session.test.ts
+    - _Leverage: vitest, vi.fn() mocks_
+  - [x] 6.4 Unit tests for fleet-memory (configure, store, query, fallback)
+    - File: test/fleet-memory.test.ts
+    - _Leverage: vitest, temp directories_
+  - [x] 6.5 Integration test for RunMessage pipeline
+    - File: test/integration/simple-harness-bridge.test.ts
+    - _Leverage: vitest, mock channels_
+  - [x] 6.6 Integration test for full lifecycle (session <-> bridge <-> memory)
+    - File: test/integration/openclaw-lifecycle.test.ts
+    - _Leverage: vitest, temp directories, mock sessions_
