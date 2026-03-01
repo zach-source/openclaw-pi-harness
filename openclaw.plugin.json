@@ -1,7 +1,7 @@
 {
   "id": "openclaw-pi-harness",
   "name": "OpenClaw Pi Harness",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Wraps Pi agent sessions with workflow command routing, channel bridging, and fleet memory for the OpenClaw Gateway.",
   "entry": "./src/plugin.ts",
   "configSchema": {
