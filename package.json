@@ -9,7 +9,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@sinclair/typebox": "^0.34.0"
+    "@sinclair/typebox": "^0.34.0",
+    "yaml": "^2.7.0"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
